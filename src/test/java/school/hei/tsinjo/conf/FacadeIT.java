@@ -17,10 +17,6 @@ public class FacadeIT {
   @SneakyThrows
   @DynamicPropertySource
   static void configureProperties(DynamicPropertyRegistry registry) {
-
-    new BucketConf().configureProperties(registry);
-    new EmailConf().configureProperties(registry);
-
     try {
       var envConfClazz = Class.forName("school.hei.tsinjo.conf.EnvConf");
       var envConfConfigureProperties =

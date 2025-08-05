@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Tsinjo</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1,
+      h2 {
+        text-align: center;
+      }
+      form {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      form div {
+        margin-bottom: 10px;
+      }
+      form label {
+        display: inline-block;
+        width: 120px;
+      }
+      form input {
+        width: 250px;
+        padding: 5px;
+      }
+      form button {
+        padding: 10px 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .donation {
+        color: green;
+      }
+      .help {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tsinjo - Emergency Fund</h1>
+
+      <h2>Submit a Donation</h2>
+      <form th:action="@{/donations}" th:object="${donationForm}" method="post">
+        <div>
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" th:field="*{fullName}" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" th:field="*{email}" required />
+        </div>
+        <div>
+          <label for="amount">Amount:</label>
+          <input type="number" id="amount" th:field="*{amount}" required />
+        </div>
+        <div>
+          <label for="pspPaymentId">Payment ID:</label>
+          <input type="text" id="pspPaymentId" th:field="*{pspPaymentId}" required />
+        </div>
+        <div>
+          <button type="submit">Donate</button>
+        </div>
+      </form>
+
+      <h2>History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Person</th>
+            <th>Amount</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="tx : ${transactions}" th:class="${tx.type == 'Donation' ? 'donation' : 'help'}">
+            <td th:text="${#temporals.format(tx.date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${tx.type}"></td>
+            <td>
+              <span th:text="${tx.personName}"></span>
+              (<span th:text="${tx.personEmail}"></span>)
+            </td>
+            <td th:text="${tx.amount}"></td>
+            <td th:text="${tx.type == 'Donation' ? tx.status : tx.description}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
