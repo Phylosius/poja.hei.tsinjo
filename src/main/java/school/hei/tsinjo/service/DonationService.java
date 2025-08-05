@@ -3,7 +3,6 @@ package school.hei.tsinjo.service;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import school.hei.tsinjo.client.VolaClient;
 import school.hei.tsinjo.endpoint.rest.controller.dto.DonationForm;
 import school.hei.tsinjo.model.Donation;
 import school.hei.tsinjo.model.Donor;
@@ -15,7 +14,7 @@ import school.hei.tsinjo.repository.DonationRepository;
 public class DonationService {
 
   private final DonationRepository donationRepository;
-  private final VolaClient volaClient;
+  private final VolaAsyncService volaAsyncService;
 
   public void createDonation(DonationForm form) {
     Donor donor =
@@ -38,6 +37,6 @@ public class DonationService {
 
     donationRepository.save(donation);
 
-    volaClient.createPayment(donor.getEmail(), payment.getPspPaymentId(), payment.getMethod());
+    volaAsyncService.createPayment(donor.getEmail(), payment.getPspPaymentId(), payment.getMethod());
   }
 }

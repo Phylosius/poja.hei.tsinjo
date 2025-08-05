@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import school.hei.tsinjo.client.VolaClient;
 import school.hei.tsinjo.endpoint.rest.controller.dto.DonationForm;
 import school.hei.tsinjo.model.Donation;
 import school.hei.tsinjo.model.Payment;
@@ -19,7 +18,7 @@ class DonationServiceTest {
 
   @Mock private DonationRepository donationRepository;
 
-  @Mock private VolaClient volaClient;
+  @Mock private VolaAsyncService volaAsyncService;
 
   @InjectMocks private DonationService donationService;
 
@@ -48,7 +47,7 @@ class DonationServiceTest {
     assertEquals(10000, savedDonation.getPayment().getAmount());
     assertEquals(Payment.PaymentStatus.VERIFYING, savedDonation.getPayment().getStatus());
 
-    verify(volaClient)
+    verify(volaAsyncService)
         .createPayment("test.donor@example.com", "psp-123", Payment.PaymentMethod.ORANGE_MONEY);
   }
 }
