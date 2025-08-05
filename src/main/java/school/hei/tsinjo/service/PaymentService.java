@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import school.hei.tsinjo.client.VolaClient;
 import school.hei.tsinjo.client.dto.VolaPayment;
-import school.hei.tsinjo.model.Donation;
 import school.hei.tsinjo.model.Payment;
 import school.hei.tsinjo.repository.DonationRepository;
 import school.hei.tsinjo.repository.PaymentRepository;

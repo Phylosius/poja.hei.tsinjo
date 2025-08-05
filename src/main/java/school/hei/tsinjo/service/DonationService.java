@@ -34,7 +34,8 @@ public class DonationService {
             .method(Payment.PaymentMethod.ORANGE_MONEY)
             .build();
 
-    Donation donation = Donation.builder().id(UUID.randomUUID().toString()).donor(donor).payment(payment).build();
+    Donation donation =
+        Donation.builder().id(UUID.randomUUID().toString()).donor(donor).payment(payment).build();
 
     donationRepository.save(donation);
 
