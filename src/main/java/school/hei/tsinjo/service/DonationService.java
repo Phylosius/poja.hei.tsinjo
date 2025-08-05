@@ -38,6 +38,7 @@ public class DonationService {
 
     donationRepository.save(donation);
 
-    volaAsyncService.createPayment(donor.getEmail(), payment.getPspPaymentId(), payment.getMethod());
+    volaAsyncService.createPayment(
+        donor.getEmail(), payment.getPspPaymentId(), payment.getMethod());
   }
 }
