@@ -37,9 +37,8 @@ class TsinjoControllerIT extends FacadeIT {
     mockMvc
         .perform(
             post("/donations")
-                .param("fullName", "Test Donor")
                 .param("email", "test@example.com")
-                .param("amount", "10000")
+                .param("paymentMethod", "ORANGE_MONEY")
                 .param("pspPaymentId", "psp-123"))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/"));

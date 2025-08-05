@@ -31,9 +31,8 @@ class DonationServiceTest {
   void createDonation() {
     // given
     DonationForm form = new DonationForm();
-    form.setFullName("Test Donor");
     form.setEmail("test.donor@example.com");
-    form.setAmount(10000);
+    form.setPaymentMethod(Payment.PaymentMethod.ORANGE_MONEY);
     form.setPspPaymentId("psp-123");
 
     // when
@@ -43,8 +42,8 @@ class DonationServiceTest {
     ArgumentCaptor<Donation> donationCaptor = ArgumentCaptor.forClass(Donation.class);
     verify(donationRepository).save(donationCaptor.capture());
     Donation savedDonation = donationCaptor.getValue();
-    assertEquals("Test Donor", savedDonation.getDonor().getFullName());
-    assertEquals(10000, savedDonation.getPayment().getAmount());
+    assertEquals("Anonymous", savedDonation.getDonor().getFullName());
+    assertEquals(0, savedDonation.getPayment().getAmount());
     assertEquals(Payment.PaymentStatus.VERIFYING, savedDonation.getPayment().getStatus());
 
     verify(volaAsyncService)

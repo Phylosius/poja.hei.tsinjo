@@ -20,7 +20,7 @@ public class DonationService {
     Donor donor =
         Donor.builder()
             .id(UUID.randomUUID().toString())
-            .fullName(form.getFullName())
+            .fullName("Anonymous")
             .email(form.getEmail())
             .build();
 
@@ -28,9 +28,9 @@ public class DonationService {
         Payment.builder()
             .id(UUID.randomUUID().toString())
             .pspPaymentId(form.getPspPaymentId())
-            .amount(form.getAmount())
+            .amount(0)
             .status(Payment.PaymentStatus.VERIFYING)
-            .method(Payment.PaymentMethod.ORANGE_MONEY)
+            .method(form.getPaymentMethod())
             .build();
 
     Donation donation = Donation.builder().id(UUID.randomUUID().toString()).donor(donor).payment(payment).build();
