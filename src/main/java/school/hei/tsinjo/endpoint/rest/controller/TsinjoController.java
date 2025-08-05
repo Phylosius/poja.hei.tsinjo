@@ -37,9 +37,7 @@ public class TsinjoController {
             transactions.add(
                 TransactionDto.builder()
                     .type("Donation")
-                    .personName(d.getDonor().getFullName())
                     .personEmail(d.getDonor().getEmail())
-                    .amount(d.getPayment().getAmount())
                     .date(d.getCreationTimestamp())
                     .status(d.getPayment().getStatus().toString())
                     .build()));
@@ -49,9 +47,7 @@ public class TsinjoController {
             transactions.add(
                 TransactionDto.builder()
                     .type("Help")
-                    .personName(h.getBeneficiary().getFullName())
                     .personEmail(h.getBeneficiary().getEmail())
-                    .amount(h.getPayment().getAmount())
                     .date(h.getCreationTimestamp())
                     .description(h.getDescription())
                     .build()));
