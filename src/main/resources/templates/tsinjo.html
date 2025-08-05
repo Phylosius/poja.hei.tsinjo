@@ -62,19 +62,20 @@
       <h2>Submit a Donation</h2>
       <form th:action="@{/donations}" th:object="${donationForm}" method="post">
         <div>
-          <label for="fullName">Full Name:</label>
-          <input type="text" id="fullName" th:field="*{fullName}" required />
-        </div>
-        <div>
           <label for="email">Email:</label>
           <input type="email" id="email" th:field="*{email}" required />
         </div>
         <div>
-          <label for="amount">Amount:</label>
-          <input type="number" id="amount" th:field="*{amount}" required />
+          <label for="paymentMethod">Payment Method:</label>
+          <select id="paymentMethod" th:field="*{paymentMethod}" required>
+            <option
+                th:each="method : ${T(school.hei.tsinjo.model.Payment.PaymentMethod).values()}"
+                th:value="${method}"
+                th:text="${method}"></option>
+          </select>
         </div>
         <div>
-          <label for="pspPaymentId">Payment ID:</label>
+          <label for="pspPaymentId">Payment Reference:</label>
           <input type="text" id="pspPaymentId" th:field="*{pspPaymentId}" required />
         </div>
         <div>
@@ -88,8 +89,7 @@
           <tr>
             <th>Date</th>
             <th>Type</th>
-            <th>Person</th>
-            <th>Amount</th>
+                    <th>Email</th>
             <th>Details</th>
           </tr>
         </thead>
@@ -97,11 +97,7 @@
           <tr th:each="tx : ${transactions}" th:class="${tx.type == 'Donation' ? 'donation' : 'help'}">
             <td th:text="${#temporals.format(tx.date, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${tx.type}"></td>
-            <td>
-              <span th:text="${tx.personName}"></span>
-              (<span th:text="${tx.personEmail}"></span>)
-            </td>
-            <td th:text="${tx.amount}"></td>
+                    <td th:text="${tx.personEmail}"></td>
             <td th:text="${tx.type == 'Donation' ? tx.status : tx.description}"></td>
           </tr>
         </tbody>
